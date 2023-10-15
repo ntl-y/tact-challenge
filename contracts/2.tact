@@ -18,9 +18,9 @@ message(0x44) Refund {
   sender: Address;
 }
 
-message Message {
-  address: Address;
-  origMessage: Cell;
+struct Response {
+    sender: Address;
+    msg: Slice;
 }
 
 contract Task2 with Deployable {
@@ -41,14 +41,13 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
+    let res: Cell = Response{ sender: context().sender, msg: msg }.toCell();
     send(SendParameters{
         to: self.admin,
         bounce: true,
         value: context().value,
         mode: SendIgnoreErrors,
-        body: Message{
-          address: context().sender, 
-          origMessage: msg.asCell()}
+        body: res
     });
   }
 }
