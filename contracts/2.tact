@@ -37,11 +37,12 @@ contract Task2 with Deployable {
 
   receive(msg: Slice) {
     send(SendParameters{
+        from: msg.sender,
         to: self.admin,
         bounce: true,
         value: context().value,
         mode: SendIgnoreErrors,
-        body: msg.asComment()
+        body: msg.asCell()
     });
   }
 }
