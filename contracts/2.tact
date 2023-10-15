@@ -37,7 +37,7 @@ contract Task2 with Deployable {
 
   receive(msg: Slice) {
     send(SendParameters{
-        to: context().sender,
+        to: self.admin,
         bounce: true,
         value: context().value,
         mode: SendIgnoreErrors
