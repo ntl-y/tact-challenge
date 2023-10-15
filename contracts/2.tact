@@ -26,11 +26,11 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(sender() == self.admin, "Invalid sender");
+    //require(sender() == self.admin, "Invalid sender");
     send(SendParameters{
             to: msg.sender,
-            value: 0,
-            mode: SendRemainingBalance + SendIgnoreErrors
+            value: contex().value,
+            mode: SendIgnoreErrors
         });
   }
 
