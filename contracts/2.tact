@@ -14,7 +14,7 @@ import "@stdlib/deploy";
 */
 
 message(0x44) Refund {
-  queryId: Int as uint64;
+  queryId: Int as uint8;
   sender: Address;
 }
 
@@ -26,13 +26,23 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    if self.admin == msg.sender{
-
-    } else {
-      
-    }
+    require(self.admin == msg.sender, "Invalid sender");
+    send(SendParameters{
+            to: msg.sender,
+            bounce: true,
+            value: context().value,
+            mode: SendIgnoreErrors
+        });
   }
 
   receive(msg: Slice) {
+    require(msg.sender == context.sender, "");
+    send(SendParameters{
+        to: msg.sender,
+        bounce: true,
+        value: context().value,
+        mode: SendIgnoreErrors,
+        body: msg.sender(), context().raw
+    });
   }
 }
