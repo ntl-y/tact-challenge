@@ -20,7 +20,7 @@ message(0x44) Refund {
 
 message Message {
   address: Address;
-  origMessage: Slice;
+  origMessage: Cell;
 }
 
 contract Task2 with Deployable {
@@ -48,8 +48,7 @@ contract Task2 with Deployable {
         mode: SendIgnoreErrors,
         body: Message{
           address: context().sender, 
-          origMessage: msg }
-          .asCell()
+          origMessage: msg.asCell()}
     });
   }
 }
