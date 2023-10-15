@@ -18,6 +18,11 @@ message(0x44) Refund {
   sender: Address;
 }
 
+message Message {
+  address: Address;
+  origMessage: Slice;
+}
+
 contract Task2 with Deployable {
   admin: Address;
 
@@ -37,12 +42,14 @@ contract Task2 with Deployable {
 
   receive(msg: Slice) {
     send(SendParameters{
-        from: msg.sender,
         to: self.admin,
         bounce: true,
         value: context().value,
         mode: SendIgnoreErrors,
-        body: msg.asCell()
+        body: Message{
+          address: msg.sender, 
+          origMessage: msg }
+          .asCell()
     });
   }
 }
