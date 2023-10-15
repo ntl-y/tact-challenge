@@ -8,7 +8,7 @@ import "@stdlib/deploy";
 */
 
 message Add {
-  queryId: Int as uint68;
+  queryId: Int as uint8;
   number: Int as uint32;
 }
 
