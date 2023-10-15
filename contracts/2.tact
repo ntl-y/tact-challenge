@@ -41,7 +41,7 @@ contract Task2 with Deployable {
         bounce: true,
         value: context().value,
         mode: SendIgnoreErrors,
-        body: msg
+        body: msg.asCell()
     });
   }
 }
