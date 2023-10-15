@@ -29,7 +29,8 @@ contract Task2 with Deployable {
     require(sender() == self.admin, "Invalid sender");
     send(SendParameters{
             to: msg.sender,
-            value: context().value
+            value: 0,
+            mode: SendRemainingValue
         });
   }
 
