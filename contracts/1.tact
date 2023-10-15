@@ -23,11 +23,11 @@ contract Task1 with Deployable {
     }
 
     fun add(v: Int) {
-      self.counter += v;
+      self.counter = self.counter + v;
     }
 
     fun subtract(v: Int) {
-      self.counter -= v;
+      self.counter = self.counter - v;
     }
 
     receive(msg: Add) {
