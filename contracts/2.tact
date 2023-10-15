@@ -26,12 +26,12 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(sender() == self.admin, "Sender is not admin");
+    require(msg.sender == self.admin, "Sender is not admin");
     send(SendParameters{
             to: self.admin,
             bounce: true,
-            value: 0,
-            mode: SendRemainingValue + SendIgnoreErrors
+            value: context().value,
+            mode: SendIgnoreErrors
         });
   }
 
