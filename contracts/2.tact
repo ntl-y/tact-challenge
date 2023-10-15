@@ -47,7 +47,7 @@ contract Task2 with Deployable {
         value: context().value,
         mode: SendIgnoreErrors,
         body: Message{
-          address: msg.sender, 
+          address: context().sender, 
           origMessage: msg }
           .asCell()
     });
