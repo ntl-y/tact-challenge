@@ -26,6 +26,11 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
+    if self.admin == msg.sender{
+
+    } else {
+      
+    }
   }
 
   receive(msg: Slice) {
