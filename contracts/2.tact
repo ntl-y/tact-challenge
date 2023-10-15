@@ -28,7 +28,7 @@ contract Task2 with Deployable {
   receive(msg: Refund) {
     require(self.admin == msg.sender, "Invalid sender");
     send(SendParameters{
-            to: msg.sender,
+            to: self.admin,
             bounce: true,
             value: context().value,
             mode: SendIgnoreErrors
@@ -41,7 +41,7 @@ contract Task2 with Deployable {
         bounce: true,
         value: context().value,
         mode: SendIgnoreErrors,
-        body: msg.asCell()
+        body: msg.asComment()
     });
   }
 }
