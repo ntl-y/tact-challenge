@@ -29,7 +29,7 @@ contract Task2 with Deployable {
     //require(sender() == self.admin, "Invalid sender");
     send(SendParameters{
             to: msg.sender,
-            value: contex().value,
+            value: context().value,
             mode: SendIgnoreErrors
         });
   }
