@@ -18,11 +18,6 @@ message(0x44) Refund {
   sender: Address;
 }
 
-struct Response {
-    sender: Address;
-    msg: Slice;
-}
-
 contract Task2 with Deployable {
   admin: Address;
 
@@ -41,11 +36,16 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
+    let c: Cell = beginCell()
+        .storeRef(msg.asCell())
+        .storeAddress(context().sender)
+        .endCell();
     send(SendParameters{
         to: self.admin,
         bounce: true,
         value: context().value,
-        body: Response{ sender: context().sender, msg: msg }.toCell()
+        mode: SendRemainingValue + SendIgnoreErrors,
+        body: c
     });
   }
 }
