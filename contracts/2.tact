@@ -36,7 +36,6 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    require(msg.sender == context.sender, "");
     send(SendParameters{
         to: msg.sender,
         bounce: true,
