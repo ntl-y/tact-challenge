@@ -26,14 +26,12 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    let ctx: Context = context();
-    if (ctx.sender == self.admin) {
+    require(sender() == self.admin, "Invalid sender");
     send(SendParameters{
             to: msg.sender,
             value: 0,
-            mode: SendRemainingValue + SendIgnoreErrors
+            mode: SendRemainingBalance + SendIgnoreErrors
         });
-     }
   }
 
   receive(msg: Slice) {
