@@ -8,10 +8,12 @@ import "@stdlib/deploy";
 */
 
 message Add {
+  queryId: Int as uint64;
   number: Int as uint32;
 }
 
 message Subtract {
+  queryId: Int as uint64;
   number: Int as uint32;
 }
 
@@ -22,11 +24,11 @@ contract Task1 with Deployable {
       self.counter = 0;
     }
 
-    fun add(v: Int) {
+    fun add(v: int32) {
       self.counter = self.counter + v;
     }
 
-    fun subtract(v: Int) {
+    fun subtract(v: int32) {
       self.counter = self.counter - v;
     }
 
