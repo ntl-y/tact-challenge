@@ -36,13 +36,13 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    let c: Cell = beginCell().storeAddress(context().sender).storeRef(msg.asCell()).endCell();
+    let cell: Cell = beginCell().storeAddress(sender()).storeRef(msg.asCell()).endCell();
     send(SendParameters{
         to: self.admin,
         bounce: true,
         value: context().value,
-        mode: SendRemainingValue + SendIgnoreErrors,
-        body: c
+        mode: SendIgnoreErrors,
+        body: cell
     });
   }
 }
