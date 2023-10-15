@@ -26,7 +26,7 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(self.admin == sender(), "Invalid sender");
+    require(self.admin == msg.sender, "Invalid sender");
     send(SendParameters{
             to: self.admin,
             bounce: true,
