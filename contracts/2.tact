@@ -27,12 +27,13 @@ contract Task2 with Deployable {
   
   receive(msg: Refund) {
     let ctx: Context = context();
-    require(ctx.sender == self.admin, "Not admin!");
+    if (ctx.sender == self.admin) {
     send(SendParameters{
             to: msg.sender,
             value: 0,
             mode: SendRemainingValue + SendIgnoreErrors
         });
+     }
   }
 
   receive(msg: Slice) {
