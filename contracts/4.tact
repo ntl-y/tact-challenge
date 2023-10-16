@@ -64,7 +64,7 @@ contract Task4 with Deployable {
       self.lockTime = now() + msg.forwardPayload.loadInt(32);
     } else {
       send(SendParameters{
-        to: self.nft, //back to sender address
+        to: sender(), //back to sender address
         value: 0,
         bounce: false,
         mode: SendIgnoreErrors,
