@@ -63,13 +63,15 @@ contract Task4 with Deployable {
 
   receive(msg: OwnershipAssigned) {
     if (self.hasNft){
+      require(true == true, "it's true");
+      /*
       send(SendParameters{
         to: sender(), //back to sender address
         value: 0,
         bounce: true,
         mode: SendIgnoreErrors,
         body: Transfer{
-          queryId: msg.queryId,
+          queryId: 0,
           newOwner: msg.prevOwner, //back to the owner
           responseDestination: myAddress(),
           customPayload: null,
@@ -77,6 +79,7 @@ contract Task4 with Deployable {
           forwardPayload: emptySlice()
         }.toCell()
       });
+      */
     } else {
       self.hasNft = true;
       self.nft = sender();
@@ -98,7 +101,7 @@ contract Task4 with Deployable {
           bounce: true,
           mode: SendIgnoreErrors + SendRemainingBalance,
           body: Transfer{
-              queryId: msg.queryId,
+              queryId: 0,
               newOwner: self.owner,
               responseDestination: myAddress(),
               customPayload: null, 
