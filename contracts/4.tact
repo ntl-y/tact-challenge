@@ -63,8 +63,6 @@ contract Task4 with Deployable {
 
   receive(msg: OwnershipAssigned) {
     if (self.hasNft){
-      require(true == true, "it's true");
-      /*
       send(SendParameters{
         to: sender(), //back to sender address
         value: 0,
@@ -75,11 +73,10 @@ contract Task4 with Deployable {
           newOwner: msg.prevOwner, //back to the owner
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: 0,
+          forwardAmount: ton(0.01),
           forwardPayload: emptySlice()
         }.toCell()
       });
-      */
     } else {
       self.hasNft = true;
       self.nft = sender();
