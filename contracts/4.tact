@@ -54,11 +54,11 @@ contract Task4 with Deployable {
   
   init(seed: Int) {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
-    self.lockTime = null;
+    self.lockTime = 0;
   }
 
   receive(msg: OwnershipAssigned) {
-    if (lockTime == null){
+    if (lockTime == 0){
       self.nft = sender();
       self.owner = msg.prevOwner;
       self.lockTime = now() + msg.forwardPayload.loadInt(32);
