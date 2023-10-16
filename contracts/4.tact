@@ -73,7 +73,7 @@ contract Task4 with Deployable {
           newOwner: msg.prevOwner, //back to the owner
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: ton(0.01),
+          forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
       });
@@ -92,6 +92,8 @@ contract Task4 with Deployable {
     if (now() < self.lockTime){
       self.reply("NFT is still locked".asComment());
     } else {
+      require(true == true, "it's true");
+      /*
       send(SendParameters{
           to: self.nft,
           value: 0,
@@ -110,6 +112,7 @@ contract Task4 with Deployable {
       self.nft = newAddress(0, 0);
       self.owner = newAddress(0, 0);
       self.lockTime = 0;
+      */
     }
   }
 
