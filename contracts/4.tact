@@ -95,7 +95,7 @@ contract Task4 with Deployable {
           value: 0,
           mode: SendRemainingBalance,
           body: Transfer{
-              queryId: msg.queryId,
+              queryId: 0,
               newOwner: sender(),
               responseDestination: myAddress(),
               customPayload: null, 
