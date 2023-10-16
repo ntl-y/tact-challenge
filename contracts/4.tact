@@ -49,8 +49,8 @@ message NftWithdrawal {
 contract Task4 with Deployable {
   seed: Int as uint128;
   lockTime: Int as int32;
-  nft: Address;
-  owner: Address;
+  nft: Address?;
+  owner: Address?;
   
   init(seed: Int) {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
@@ -60,13 +60,13 @@ contract Task4 with Deployable {
   receive(msg: OwnershipAssigned) {
     if (self.nft == sender()){
       send(SendParameters{
-        to: self.nft, //back to sender address
+        to: sender(), //back to sender address
         value: 0,
         bounce: false,
         mode: SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
-          newOwner: self.owner, //back to the owner
+          newOwner: msg.prevOwner, //back to the owner
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
@@ -84,13 +84,13 @@ contract Task4 with Deployable {
     require(now() >= self.lockTime, "NFT is still locked");
     
     send(SendParameters{
-        to: sender(),
+        to: self.nft!!,
         value: 0,
         bounce: false,
         mode: SendIgnoreErrors + SendRemainingBalance,
         body: Transfer{
             queryId: 0,
-            newOwner: self.owner,
+            newOwner: self.owner!!,
             responseDestination: myAddress(),
             customPayload: null, 
             forwardAmount: 0,
