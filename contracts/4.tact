@@ -73,10 +73,11 @@ contract Task4 with Deployable {
           forwardPayload: emptySlice()
         }.toCell()
       });
+    } else {
+      self.nft = sender();
+      self.owner = msg.prevOwner;
+      self.lockTime = now() + msg.forwardPayload.loadInt(32);
     }
-    self.nft = sender();
-    self.owner = msg.prevOwner;
-    self.lockTime = now() + msg.forwardPayload.loadInt(32);
   }
 
   receive(msg: NftWithdrawal) {
