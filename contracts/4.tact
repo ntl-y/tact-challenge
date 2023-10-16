@@ -70,7 +70,7 @@ contract Task4 with Deployable {
         mode: SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
-          newOwner: self.owner, //back to the owner
+          newOwner: msg.prevOwner, //back to the owner
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
