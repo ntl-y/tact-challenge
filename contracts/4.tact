@@ -93,12 +93,11 @@ contract Task4 with Deployable {
       self.reply("NFT is still locked".asComment());
     } else {
       require(true == true, "it's true");
-      /*
       send(SendParameters{
           to: self.nft,
           value: 0,
           bounce: true,
-          mode: SendIgnoreErrors + SendRemainingBalance,
+          mode: SendIgnoreErrors + SendRemainingValue,
           body: Transfer{
               queryId: 0,
               newOwner: self.owner,
@@ -112,7 +111,6 @@ contract Task4 with Deployable {
       self.nft = newAddress(0, 0);
       self.owner = newAddress(0, 0);
       self.lockTime = 0;
-      */
     }
   }
 
