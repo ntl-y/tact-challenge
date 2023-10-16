@@ -67,11 +67,17 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
+    require((sender() == self.jettonAddressA) || (sender() == self.jettonAddressA), "Invalid sender");
+
+    //smth
+
+    //send(TokenTransfer{});
   } 
   
   get fun price(jetton: Address): Int { 
   }
   
   get fun balance(jetton: Address): Int { 
+    return 0;
   }
 }
