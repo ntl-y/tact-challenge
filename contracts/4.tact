@@ -48,23 +48,76 @@ message NftWithdrawal {
 
 contract Task4 with Deployable {
   seed: Int as uint128;
+  nftOwner: Address?;
+  lockedNft: Address?;
+  lockTime: Int;
   
   init(seed: Int) {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
+    self.lockTime = 0;
   }
 
   receive(msg: OwnershipAssigned) {
+    require(self.nftOwner == null, "NFT is locked");
+
+    let senderAddress: Address = msg.prevOwner;
+    let nftAddress: Address = sender();
+    let time: Int = msg.forwardPayload.loadInt(32);
+
+    if (self.nftOwner != null){
+      send(SendIgnoreErrors{
+          to: nftAddress,
+          value: 0,
+          bounce: false,
+          mode: SendIgnoreErrors,
+          body: Transfer{
+              queryId: 0,
+              newOwner: senderAddress,
+              responseDestination: myAddress(),
+              forwardAmount: 0,
+              forwardPayload: emptySlice()
+        }.toCell()
+      });
+    }
+
+    self.nftOwner = senderAddress;
+    self.lockedNft = nftAddress;
+    self.lockTime = now() + time;
   }
 
   receive(msg: NftWithdrawal) {
+    require(sender() == msg.nftAddress, "Invalid sender");
+    require(now() >= self.lockTime, "NFT is still locked");
+    
+    send(SendIgnoreErrors{
+        to: self.lockedNft,
+        value: 0,
+        bounce: false,
+        mode: SendIgnoreErrors,
+        body: Transfer{
+            queryId: 0,
+            newOwner: self.nftOwner,
+            responseDestination: myAddress(),
+            forwardAmount: 0,
+            forwardPayload: emptySlice()
+        }.toCell()
+      });
+
   }
 
   get fun time(): Int {
+    if (now() >= self.lockTime){
+      return 0;
+    } else {
+      return self.lockTime - now();
+    }
   }
 
   get fun nft(): Address? {
+    return self.lockedNft;
   }
 
   get fun owner(): Address? {
+    return self.nftOwner;
   }
 }
