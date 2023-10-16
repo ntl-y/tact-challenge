@@ -48,8 +48,8 @@ message NftWithdrawal {
 
 contract Task4 with Deployable {
   seed: Int as uint128;
-  nftOwner: Address?;
-  lockedNft: Address?;
+  nftOwner: Address;
+  lockedNft: Address;
   lockTime: Int;
   
   init(seed: Int) {
@@ -58,7 +58,7 @@ contract Task4 with Deployable {
   }
 
   receive(msg: OwnershipAssigned) {
-    require(self.nftOwner == null, "NFT is locked");
+    //require(self.nftOwner == null, "NFT is locked");
 
     let senderAddress: Address = msg.prevOwner;
     let nftAddress: Address = sender();
