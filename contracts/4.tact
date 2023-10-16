@@ -69,7 +69,6 @@ contract Task4 with Deployable {
           to: nftAddress,
           value: 0,
           bounce: false,
-          mode: SendIgnoreErrors,
           body: Transfer{
               queryId: 0,
               newOwner: senderAddress,
@@ -93,7 +92,6 @@ contract Task4 with Deployable {
         to: self.lockedNft,
         value: 0,
         bounce: false,
-        mode: SendIgnoreErrors,
         body: Transfer{
             queryId: 0,
             newOwner: self.nftOwner,
