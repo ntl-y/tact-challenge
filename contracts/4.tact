@@ -58,7 +58,7 @@ contract Task4 with Deployable {
   }
 
   receive(msg: OwnershipAssigned) {
-    if (self.nft == sender()){
+    if (self.nft != null){
       send(SendParameters{
         to: sender(), //back to sender address
         value: 0,
