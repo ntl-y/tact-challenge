@@ -68,11 +68,12 @@ contract Task4 with Deployable {
         to: ctx.sender, // request to nft address
         value: 0,
         bounce: false,
+        mode: SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
           newOwner: msg.prevOwner, //back to the owner
-          responseDestination: msg.prevOwner,
-          customPayload: null,
+          responseDestination: sender(),
+          customPayload: emptyCell(),
           forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
@@ -95,13 +96,13 @@ contract Task4 with Deployable {
       send(SendParameters{
           to: self.nft,
           value: 0,
-          mode: SendRemainingValue,
+          mode: SendIgnoreErrors + SendRemainingBalance,
           bounce: false,
           body: Transfer{
-              queryId: msg.queryId,
+              queryId: 0,
               newOwner: self.owner,
-              responseDestination: self.owner,
-              customPayload: null, 
+              responseDestination: sender(),
+              customPayload: emptyCell(), 
               forwardAmount: 0,
               forwardPayload: emptySlice()
           }.toCell()
