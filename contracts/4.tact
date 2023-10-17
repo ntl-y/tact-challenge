@@ -82,7 +82,7 @@ contract Task4 with Deployable {
       });
     } else {
       self.hasNft = true;
-      self.nft = ctx.sender;
+      self.nft = sender();
       self.owner = msg.prevOwner;
       self.queryId = msg.queryId;
       self.lockTime = now() + msg.forwardPayload.loadUint(32);
@@ -100,12 +100,12 @@ contract Task4 with Deployable {
       send(SendParameters{
           to: self.nft,
           value: 0,
-          mode: SendPayGasSeparately + SendRemainingBalance,
+          mode: SendRemainingBalance,
           bounce: false,
           body: Transfer{
               queryId: msg.queryId, //
-              newOwner: self.owner,
-              responseDestination: self.owner,
+              newOwner: ctx.sender,
+              responseDestination: ctx.sender,
               customPayload: null, 
               forwardAmount: 0,
               forwardPayload: emptySlice()
