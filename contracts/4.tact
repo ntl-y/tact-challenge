@@ -100,7 +100,7 @@ contract Task4 with Deployable {
       send(SendParameters{
           to: msg.nftAddress, // self.nft msg.nftAddress
           value: 0, // 100%
-          mode: SendRemainingBalance, // 100%
+          mode: SendPayGasSeparately + SendRemainingBalance, // 100%
           bounce: false,
           body: Transfer{
               queryId: msg.queryId, // 0 msg.queryId
