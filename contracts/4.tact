@@ -52,7 +52,6 @@ contract Task4 with Deployable {
   nft: Address;
   owner: Address;
   hasNft: Bool;
-  queryId: Int as uint64;
   
   init(seed: Int) {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
@@ -60,7 +59,6 @@ contract Task4 with Deployable {
     self.hasNft = false;
     self.nft = newAddress(0, 0);
     self.owner = newAddress(0, 0);
-    self.queryId = 0;
   }
 
   receive(msg: OwnershipAssigned) {
@@ -84,7 +82,6 @@ contract Task4 with Deployable {
       self.hasNft = true;
       self.nft = sender();
       self.owner = msg.prevOwner;
-      self.queryId = msg.queryId;
       self.lockTime = now() + msg.forwardPayload.loadUint(32);
     }
   }
@@ -98,14 +95,14 @@ contract Task4 with Deployable {
       self.reply("NFT is still locked".asComment());
     } else {
       send(SendParameters{
-          to: msg.nftAddress, // self.nft msg.nftAddress
+          to: self.nft, // self.nft msg.nftAddress
           value: 0, // 100%
-          mode: SendPayGasSeparately + SendRemainingBalance, // 100%
+          mode: SendRemainingBalance, // 100%
           bounce: false,
           body: Transfer{
               queryId: msg.queryId, // 0 msg.queryId
-              newOwner: ctx.sender, // self.owner ctx.sender sender()
-              responseDestination: ctx.sender, // self.owner ctx.sender sender()
+              newOwner: self.owner, // self.owner ctx.sender sender()
+              responseDestination: self.owner, // self.owner ctx.sender sender()
               customPayload: null, 
               forwardAmount: 0,
               forwardPayload: emptySlice()
@@ -114,7 +111,6 @@ contract Task4 with Deployable {
       self.hasNft = false;
       self.nft = newAddress(0, 0);
       self.owner = newAddress(0, 0);
-      self.queryId = 0;
       self.lockTime = 0;
     }
   }
