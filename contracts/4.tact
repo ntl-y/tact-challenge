@@ -96,11 +96,11 @@ contract Task4 with Deployable {
       let ctx: Context = context();
       send(SendParameters{
           to: self.nft,
-          value: ctx.value,
+          value: 0,
           mode: SendRemainingBalance,
           bounce: false,
           body: Transfer{
-              queryId: msg.queryId,
+              queryId: msg.queryId, //
               newOwner: self.owner,
               responseDestination: self.owner,
               customPayload: null, 
