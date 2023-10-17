@@ -64,7 +64,7 @@ contract Task4 with Deployable {
   receive(msg: OwnershipAssigned) {
     if (self.hasNft){
       send(SendParameters{
-        to: sender(), // request to nft address
+        to: self.nft, // request to nft address
         value: 0,
         bounce: false,
         mode: SendIgnoreErrors + SendRemainingValue,
@@ -114,24 +114,18 @@ contract Task4 with Deployable {
   }
 
   get fun time(): Int {
-    /*
     if (now() >= self.lockTime){
       return 0;
     } else {
       return self.lockTime - now();
     }
-    */
   }
 
   get fun nft(): Address? {
-    /*
     return self.nft;
-    */
   }
 
   get fun owner(): Address? {
-    /*
     return self.owner;
-    */
   }
 }
