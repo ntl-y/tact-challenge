@@ -94,13 +94,13 @@ contract Task4 with Deployable {
     } else {
       send(SendParameters{
           to: self.nft,
-          value: context().value,
-          mode: 3,
+          value: 0,
+          mode: SendRemainingBalance,
           bounce: false,
           body: Transfer{
               queryId: 0,
               newOwner: self.owner,
-              responseDestination: sender(),
+              responseDestination: self.owner,
               customPayload: emptyCell(), 
               forwardAmount: 0,
               forwardPayload: emptySlice()
@@ -114,18 +114,24 @@ contract Task4 with Deployable {
   }
 
   get fun time(): Int {
+    /*
     if (now() >= self.lockTime){
       return 0;
     } else {
       return self.lockTime - now();
     }
+    */
   }
 
   get fun nft(): Address? {
+    /*
     return self.nft;
+    */
   }
 
   get fun owner(): Address? {
+    /*
     return self.owner;
+    */
   }
 }
