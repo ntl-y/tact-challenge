@@ -87,8 +87,7 @@ contract Task4 with Deployable {
   }
 
   receive(msg: NftWithdrawal) {
-    let ctx: Context = context();
-    require(self.owner == ctx.sender, "Invalid sender");
+    require(self.owner == sender(), "Invalid sender");
     require(self.hasNft, "No NFT in contract");
     require(self.nft == msg.nftAddress, "Invalid nft");
     if (now() < self.lockTime){
@@ -101,8 +100,8 @@ contract Task4 with Deployable {
           bounce: false,
           body: Transfer{
               queryId: msg.queryId, // 0 msg.queryId
-              newOwner: self.owner, // self.owner ctx.sender sender()
-              responseDestination: self.owner, // self.owner ctx.sender sender()
+              newOwner: sender(), // self.owner ctx.sender sender()
+              responseDestination: sender(), // self.owner ctx.sender sender()
               customPayload: null, 
               forwardAmount: 0,
               forwardPayload: emptySlice()
