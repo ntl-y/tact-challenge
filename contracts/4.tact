@@ -99,7 +99,7 @@ contract Task4 with Deployable {
           mode: SendRemainingBalance, // 100%
           bounce: false,
           body: Transfer{
-              queryId: 0, //
+              queryId: msg.queryId, //
               newOwner: self.owner, // nft owner - self.owner ctx.sender sender()
               responseDestination: self.owner, // who receives the balance - self.owner ctx.sender sender()
               customPayload: null, 
