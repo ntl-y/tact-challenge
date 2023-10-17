@@ -67,7 +67,7 @@ contract Task4 with Deployable {
         to: sender(), // request to nft address
         value: 0,
         bounce: false,
-        mode: SendIgnoreErrors + SendRemainingValue,
+        mode: SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
           newOwner: msg.prevOwner, //back to the owner
@@ -102,7 +102,7 @@ contract Task4 with Deployable {
               newOwner: self.owner,
               responseDestination: self.owner,
               customPayload: emptyCell(), 
-              forwardAmount: 0,
+              forwardAmount: context().value,
               forwardPayload: emptySlice()
           }.toCell()
         });
