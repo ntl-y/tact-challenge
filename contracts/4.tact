@@ -91,12 +91,12 @@ contract Task4 with Deployable {
       self.reply("NFT is still locked".asComment());
     } else {
       send(SendParameters{
-          to: self.nft,
+          to: sender(),
           value: 0,
           mode: SendRemainingBalance,
           body: Transfer{
               queryId: 0,
-              newOwner: sender(),
+              newOwner: self.nft,
               responseDestination: myAddress(),
               customPayload: null, 
               forwardAmount: 0,
