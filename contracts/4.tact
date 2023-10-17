@@ -93,16 +93,17 @@ contract Task4 with Deployable {
     if (now() < self.lockTime){
       self.reply("NFT is still locked".asComment());
     } else {
+      let ctx: Context = context();
       send(SendParameters{
           to: self.nft,
-          value: context().value,
+          value: ctx.value,
           mode: SendRemainingBalance,
           bounce: false,
           body: Transfer{
-              queryId: 0,
+              queryId: msg.queryId,
               newOwner: self.owner,
               responseDestination: self.owner,
-              customPayload: emptyCell(), 
+              customPayload: null, 
               forwardAmount: 0,
               forwardPayload: emptySlice()
           }.toCell()
