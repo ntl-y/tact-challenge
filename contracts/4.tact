@@ -63,16 +63,15 @@ contract Task4 with Deployable {
 
   receive(msg: OwnershipAssigned) {
     if (self.hasNft){
-      let ctx: Context = context();
       send(SendParameters{
-        to: ctx.sender, // request to nft address
+        to: sender(), // request to nft address
         value: 0,
         bounce: false,
         mode: SendIgnoreErrors + SendRemainingValue,
         body: Transfer{
           queryId: 0,
           newOwner: msg.prevOwner, //back to the owner
-          responseDestination: msg.prevOwner,
+          responseDestination: sender(),
           customPayload: emptyCell(),
           forwardAmount: 0,
           forwardPayload: emptySlice()
