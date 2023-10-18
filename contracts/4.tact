@@ -87,6 +87,7 @@ contract Task4 with Deployable {
   }
 
   receive(msg: NftWithdrawal) {
+    /*
     let ctx: Context = context();
     require(self.owner == ctx.sender, "Invalid sender");
     require(self.hasNft, "No NFT in contract");
@@ -113,6 +114,7 @@ contract Task4 with Deployable {
       self.owner = newAddress(0, 0);
       self.lockTime = 0;
     }
+    */
   }
 
   get fun time(): Int {
