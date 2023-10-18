@@ -96,7 +96,7 @@ contract Task4 with Deployable {
     } else {
       send(SendParameters{
           to: self.nft, // 100%
-          value: 0, // 100%
+          value: ctx.value, // 100%
           mode: SendRemainingValue, // 
           bounce: true,
           body: Transfer{
