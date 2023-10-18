@@ -87,11 +87,11 @@ contract Task4 with Deployable {
   }
 
   receive(msg: NftWithdrawal) {
-    /*
     let ctx: Context = context();
     require(self.owner == ctx.sender, "Invalid sender");
-    require(self.hasNft, "No NFT in contract");
-    require(self.nft == msg.nftAddress, "Invalid nft");
+    //require(self.hasNft, "No NFT in contract");
+    //require(self.nft == msg.nftAddress, "Invalid nft");
+    /*
     if (now() < self.lockTime){
       self.reply("NFT is still locked".asComment());
     } else {
