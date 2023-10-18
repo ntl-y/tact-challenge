@@ -98,7 +98,7 @@ contract Task4 with Deployable {
           to: self.nft, // 100%
           value: 0, // 100%
           mode: 128, // 
-          bounce: false,
+          bounce: true,
           body: Transfer{
               queryId: msg.queryId, // 100 %
               newOwner: self.owner, // 100 %
