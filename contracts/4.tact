@@ -91,10 +91,10 @@ contract Task4 with Deployable {
     require(self.owner == ctx.sender, "Invalid sender");
     //require(self.hasNft, "No NFT in contract");
     //require(self.nft == msg.nftAddress, "Invalid nft");
-    /*
     if (now() < self.lockTime){
       self.reply("NFT is still locked".asComment());
     } else {
+      /*
       send(SendParameters{
           to: self.nft, // 100%
           value: 0, // 100%
