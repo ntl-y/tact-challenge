@@ -110,7 +110,7 @@ contract Task4 with Deployable {
       self.hasNft = false;
       self.nft = newAddress(0, 0);
       self.owner = newAddress(0, 0);
-      self.lockTime = 0;
+      // self.lockTime = 0;
     }
   }
 
