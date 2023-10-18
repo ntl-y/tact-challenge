@@ -97,12 +97,11 @@ contract Task4 with Deployable {
       send(SendParameters{
           to: self.nft, // self.nft, // 100%
           value: 0, // 100%
-          mode: SendRemainingValue, // 
-          bounce: false,
+          mode: SendRemainingValue + SendIgnoreErrors, // 
           body: Transfer{
               queryId: msg.queryId, // 100 %
-              newOwner: ctx.sender, // 100 %
-              responseDestination: ctx.sender, // 100 %
+              newOwner: self.owner, // 100 %
+              responseDestination: self.owner, // 100 %
               customPayload: null, 
               forwardAmount: 0,
               forwardPayload: emptySlice()
