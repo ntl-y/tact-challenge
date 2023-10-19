@@ -67,7 +67,7 @@ contract Task4 with Deployable {
       send(SendParameters{
         to: ctx.sender, // request to nft address
         value: ctx.value,
-        bounce: false,
+        bounce: true,
         mode: SendIgnoreErrors,
         body: Transfer{
           queryId: msg.queryId,
@@ -79,10 +79,12 @@ contract Task4 with Deployable {
         }.toCell()
       });
     } else {
+      /*
       self.hasNft = true;
       self.nft = ctx.sender;
       self.owner = msg.prevOwner;
       self.lockTime = (now() + msg.forwardPayload.loadUint(32));
+      */
     }
   }
 
