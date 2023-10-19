@@ -79,12 +79,10 @@ contract Task4 with Deployable {
         }.toCell()
       });
     } else {
-      /*
       self.hasNft = true;
       self.nft = ctx.sender;
       self.owner = msg.prevOwner;
-      self.lockTime = (now() + msg.forwardPayload.loadUint(32));
-      */
+      //self.lockTime = (now() + msg.forwardPayload.loadUint(32));
     }
   }
 
