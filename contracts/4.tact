@@ -66,7 +66,6 @@ contract Task4 with Deployable {
         to: ctx.sender, // request to nft address
         value: ctx.value,
         bounce: true,
-        mode: SendIgnoreErrors,
         body: Transfer{
           queryId: msg.queryId,
           newOwner: msg.prevOwner, //back to the owner
