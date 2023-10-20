@@ -61,7 +61,7 @@ contract Task4 with Deployable {
 
   receive(msg: OwnershipAssigned) {
     let ctx: Context = context();
-    if (self.nft == null){
+    if (self.nft != null){
       send(SendParameters{
         to: ctx.sender, // request to nft address
         value: ctx.value,
