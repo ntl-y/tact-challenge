@@ -51,23 +51,21 @@ contract Task4 with Deployable {
   lockTime: Int as uint32;
   nft: Address?;
   owner: Address?;
-  hasNft: Bool;
   
   init(seed: Int) {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
     self.lockTime = 0;
-    self.hasNft = false;
     self.nft = null;
     self.owner = null;
   }
 
   receive(msg: OwnershipAssigned) {
     let ctx: Context = context();
-    if (self.hasNft){
+    if (self.nft == null){
       send(SendParameters{
         to: ctx.sender, // request to nft address
         value: ctx.value,
-        bounce: true,
+        bounce: false,
         mode: SendIgnoreErrors,
         body: Transfer{
           queryId: msg.queryId,
@@ -79,7 +77,6 @@ contract Task4 with Deployable {
         }.toCell()
       });
     } else {
-      self.hasNft = true;
       self.nft = ctx.sender;
       self.owner = msg.prevOwner;
       self.lockTime = (now() + msg.forwardPayload.loadUint(32));
@@ -107,7 +104,6 @@ receive(msg: NftWithdrawal) {
         }.toCell()
       });
       self.lockTime = 0;
-      self.hasNft = false;
       self.nft = null;
       self.owner = null;
     }
