@@ -112,9 +112,8 @@ receive(msg: NftWithdrawal) {
   get fun time(): Int {
     if (now() >= self.lockTime){
       return 0;
-    } else {
-      return (self.lockTime - now());
     }
+    return self.lockTime - now();
   }
 
   get fun nft(): Address? {
